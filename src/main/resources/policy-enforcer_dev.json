@@ -1,0 +1,30 @@
+{
+  "realm": "my-realm",
+  "auth-server-url": "http://localhost:9090",
+  "resource": "myclient",
+  "credentials": {
+    "secret": "hwSZHgw0HiQmHHwOsVsvu0LdIeGn6a1T"
+  },
+  "paths": [
+    {
+      "path" : "/demo/*",
+      "name" : "protect-resources",
+      "methods" : [
+        {
+          "method": "GET"
+        }
+      ],
+      "enforcement-mode" : "ENFORCING"
+    },
+    {
+      "path" : "/login/*",
+      "name" : "ignore-resources",
+      "methods" : [
+        {
+          "method": "POST"
+        }
+      ],
+      "enforcement-mode" : "DISABLED"
+    }
+  ]
+}

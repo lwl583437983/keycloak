@@ -1,0 +1,48 @@
+services:
+  web-app:
+    environment:
+      - TZ=Asia/Shanghai
+    image: remote-lock:v1
+    container_name: demo-container
+    depends_on:
+      - postgres
+      - keycloak
+    ports:
+      - 8080:8080
+    networks:
+      - demo-networks
+  postgres:
+    image: postgres:10
+    container_name: db-container
+    volumes:
+      - postgres_volumes:/var/lib/postgresql/data
+    environment:
+      - TZ=Asia/Shanghai
+      - POSTGRES_DB=demo
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=root
+    ports:
+      - 5432:5432
+    networks:
+      - demo-networks
+  keycloak:
+    image: keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - TZ=Asia/Shanghai
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KEYCLOAK_LOGLEVEL=DEBUG
+      - PROXY_ADDRESS_FORWARDING=true
+      - KC_HTTPS_CLIENT_AUTH=none
+    ports:
+      - 9090:8080
+    command: start-dev
+    networks:
+      - demo-networks
+networks:
+  demo-networks:
+    driver: bridge
+
+volumes:
+  postgres_volumes:
