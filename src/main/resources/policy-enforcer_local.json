@@ -3,7 +3,7 @@
   "auth-server-url": "http://keycloak:8080",
   "resource": "myclient",
   "credentials": {
-    "secret": "hwSZHgw0HiQmHHwOsVsvu0LdIeGn6a1T"
+    "secret": "secret"
   },
   "paths": [
     {
